@@ -87,7 +87,7 @@ This server will provide the SQL database instance needed for the lab/demo envir
 ## Extra software
 
 - .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
-- [SQL 2008-2016 (test 2017 Developer!?)](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
+- [SQL 2008-2017](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
 - [SQL 2017 Reporting Service](https://www.microsoft.com/en-us/download/details.aspx?id=55252)
  
 - SQL Management Studio (https://aka.ms/ssmsfullsetup)
@@ -97,7 +97,7 @@ This server will provide the SQL database instance needed for the lab/demo envir
 During the installation of the SQL server a few configuration options *must* be selected:
 1. Database Engine Services
 2. Client Tools Connectivy
-3. Install a default SQL with a *Named Instance* named **CENTRIFY**
+3. Install a default SQL with a *Named Instance* and *Instance ID* named **CENTRIFY**
 4. Leave the *Windows authentication mode* and add the **greensafe\Domain Admins** as the SQL Server Administrator using the **Add...** button
 5. Open the **SQL Server Configuration Manager**
 6. Select *SQL Server Network Configuration*
@@ -134,6 +134,7 @@ After this, the URLs have to be defined
 Download and install the SQL Management Studio on the **db-server**
 
 <BR/><BR/>
+
 # Apps-server
 
 The lab will be mostly run from this server, so some parts have to be installed and prepared and **is member of the greensafe.lab domain**.
@@ -159,6 +160,7 @@ The lab will be mostly run from this server, so some parts have to be installed 
 - Services shortcut on the desktop and pinned to the taskbar
 - Google Chrome shortcut on the desktop and pinned to the taskbar (https://www.google.com/chrome/?standalone=1)
 - Active Directory Users and Computers shortcut on the desktop and pinned to the taskbar
+- Add the domain account GREENSAFE\cfyadmin to allow Log on as Service rights (Open *Local Security Policy* navigate to *Security Settings > Local Policies > User Rights Assignment*. Double click *Log on as a service* and add **cfyadmin** [Reference document](https://docs.microsoft.com/en-us/system-center/scsm/enable-service-log-on-sm?view=sc-sm-2019))
 
 # Final Domain configuration
 
