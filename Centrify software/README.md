@@ -10,7 +10,7 @@ To build the environment the following pre-requisites are needed in knowledge an
 
     - Microsoft Windows Server and Workstation
     - Active Directory installation and configuration
-    - Linux, CentOS
+    - Linux, CentOS including [vi](https://www.guru99.com/the-vi-editor.html)
 
 - Network
 
@@ -35,9 +35,28 @@ To build the environment the following pre-requisites are needed in knowledge an
     - Centrify Server Suite Software (request via ThycoticCentrify SE)
     - Google Chrome and/or Firefox browser
 
-## Windows Active Directory
+- Extra configuration for All Windows 2016 Server machines
 
-The lab needs a AD Domain Controller.
+	- Add all servers to the greensafe.lab domain
+	- Disable the firewall
+	- Set Google Chrome as the default browser where it needs to be installed
+	- Disable the Server Manager start up at boot time
+	- Remove IE from the taskbar
+	- Run Windows Updates on all machines
+
+---
+
+**PRO TIP** 
+
+Create a Windows 2016 syspreped template and use to build the all needed Windows machines. Have to template pre-installed with:
+- Windows Update ran
+- Chrome
+- PuTTY
+
+---
+## DC-Server
+
+The lab needs a AD Domain Controller with the name **dc-server**. This part of the preparation is setting this up.
 ### Hardware components:
 
 - 2 vCPUs
@@ -49,14 +68,65 @@ The lab needs a AD Domain Controller.
 - Create a Active Directory Domain named **greensafe.lab**
 - After domain has been created:
 
-    - Copy the *[users.csv](./users.csv)* file onto the machine to a location in the AD VM
-    - Copy the following script *[Greensafe-lab-OU-Groups-Users.ps1](./Greensafe-lab-OU-Groups-Users.ps1)* to the same location as the users.csv. Change if wanted the default password to something else.
+    - Copy the *[users.csv](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/users.csv)* file onto the machine to a location in the AD VM
+    - Copy the following script *[Greensafe-lab-OU-Groups-Users.ps1](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/Greensafe-lab-OU-Groups-Users.ps1)* to the same location as the users.csv. Change if wanted the default password to something else.
     - Open a Powershell and CD to the location of the two files
     - Run the the Powershell command to let the script create the AD Objects.
 
+## DB-server
+
+This server will provide the SQL database instance needed for the lab/demo environment and is **member of the greensafe.lab domain**.
+
+### Hardware
+
+- 4 vCPU
+- 8 GB RAM
+- 60 GB HDD
+
+### Extra software
+
+- .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
+- [SQL 2008-2016 (test 2017 Developer!?)](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
+- [SQL 2017 Reporting Service](https://www.microsoft.com/en-us/download/details.aspx?id=55252)
+ 
+- SQL Management Studio (https://aka.ms/ssmsfullsetup)
+
+### SQL server
+
+During the installation of the SQL server a few configuration options *must* be selected:
+1. Database Engine Services
+2. Client Tools Connectivy
+3. Install a default SQL with an *Instance ID* named **CENTRIFY**
+4. Leave the *Windows authentication mode* and add the **greensafe\Domain Admins** as the SQL Server Administrator using the **Add...** button
+
+### SQL Reporting Services
+
+Back at the SQL installation, click SQL Reporting Services. This will open a webpage to [SQL 2017 Reporting Service](https://www.microsoft.com/en-us/download/details.aspx?id=55252). Download and execute the downloaded file, select the Developer edition. after the installation a Restart is required. Extra configuration steps
+
+1. Start the Report Server Configuration Manager
+2. Accept the default SSRS instance
+3. Under *Database*, click **Change Database**
+4. **Create a new report server database** and click **Next**
+5. Click **Next**
+6. *Database Name* **Reportserver$CENTRIFY** and click **Next**
+7. Click **Next**
+8. Click **Next**
+9. Click **Finish**
+
+After this, the URLs have to be defined
+
+1. Under *Web Service URL* set the Virtual Directory to *ReportServer_CENTRIFY*
+2. Click **Apply** and wait till all is ready
+3. Under *Web Portal URL* set the Virtual Directory to *Reports_CENTRIFY*
+4. Click **Apply** and wait till all is ready
+
+### SQL Management Studio
+
+Download and install the SQL Management Studio on the **db-server**
+
 ## Apps-server
 
-The lab will be run from this server, so some parts have to be installed and prepared and is member of the greensafe.lab domain.
+The lab will be mostly run from this server, so some parts have to be installed and prepared and **is member of the greensafe.lab domain**.
 
 ### Hardware
 
@@ -69,39 +139,20 @@ The lab will be run from this server, so some parts have to be installed and pre
 - PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 - WinSCP (https://winscp.net/eng/downloads.php)
 - Windows Adminstrative Tools (https://www.hammer-software.com/how-to-install-remote-server-administration-tools-rsat-on-windows-server-2016/)
+- Group Policy Management (https://helpcenter.netwrix.com/NA/Third_party/GPMC.html)
 
 ### Configuration
 
 - PuTTY shortcut on the desktop
 - WinSCP shortcut on the desktop
-- GPO editor shortcut on the desktop and pinned to the taskbar
+- GPO editor shortcut on the desktop and pinned to the taskbar 
 - Services shortcut on the desktop and pinned to the taskbar
 - Google Chrome shortcut on the desktop and pinned to the taskbar (https://www.google.com/chrome/?standalone=1)
 - Active Directory Users and Computers shortcut on the desktop and pinned to the taskbar
 
-
-## DB-server
-
-This server will provide the SQL database instance needed for the lab/demo environment and is member of the greensafe.lab domain
-
-### Hardware
-
-- 4 vCPU
-- 8 GB RAM
-- 60 GB HDD
-
-### Extra software
-
-- .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
-- SQL 2008-2016 (test 2017 Developer!?  https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/SQLServer2017-SSEI-Dev.exe)
-
-    - including Reporting Services
- 
-- SQL Management Studio (https://aka.ms/ssmsfullsetup)
-
 ## devops-windows
 
-This Windows 10 Client machine which is not part of the domain and in another Network IP Range. It will be used in the lab as Connector and to remote control into it.
+This Windows 2016 machine is not part of the domain and in another Network IP Range. It will be used in the lab as Connector and to remote control into its network.
 
 ### Hardware
 
@@ -114,10 +165,29 @@ This Windows 10 Client machine which is not part of the domain and in another Ne
 - PuTTY on desktop
 - Chrome on desktop
 
+## Final Domain configuration
+
+After all steps have been run, disable the Windows Update using the Group Policy Editor
+
+1. Log into the dc-server using a Domain Admin account (Administrator or afoster)
+1. Open the **Group Policy Manager** under *Windows Administrative Tools*
+2. Expand *Domains > greensafe.lab*  
+3. Right-click **Default Domain Policy** and select **Edit...**
+4. Navigate to *Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Update*
+5. Double-click on **Configure Automatic Updates** select **Disabled** and click **OK**
+6. Close all open Windows and log out
+---
 ## Linux machines
 
 The three Linux machines are based on the CentOS 7 distribution. Download the minimum iso (approx. 1GB) from http://isoredirect.centos.org/centos/7/isos/x86_64/.
 
+---
+
+**PRO TIP**
+
+Build one Linux machine and then clone it for the other two, make the needed changes to speed up the creation of the three Linux boxes. **Stop at the creation of the users as they are dependent on the Linux Machine**.
+
+---
 ### Hardware
 
 Two out of the three Linux machines have the same hardware requirement. The last one (devops-unix) is smaller in size.
@@ -136,9 +206,9 @@ Two out of the three Linux machines have the same hardware requirement. The last
 ### Installation steps
 
 Install CentOS as a minimum installation using the downloaded ISO file. For the **root** password use **password1**
-#### Post O/S installation
+### Post O/S installation
 
-##### General steps for all three Linux machines
+#### General steps for all three Linux machines
 
 After the installation of the CentOS 7 O/S the following needs to be installed and configured for all three Linux machines:
 
@@ -146,9 +216,32 @@ After the installation of the CentOS 7 O/S the following needs to be installed a
 - Run the following commands
 
     - ``yum update -y``
-	- ``yum install -y net-tools``
-	- ``yum install -y open-vm-tools``
+	- ``yum install -y net-tools open-vm-tools``
 
+- Use ``hostnamectl set-hostname \<hostname>`` to set the correct hostname
+- Change the ``/etc/hosts`` file to correspond to the correct name using ``vi /etc/hosts``
+- Reboot the Linux machine
+- After the first reboot your server should now have the correct hostname, use ``hostnamectl`` to check
+- The Linux machine wil now be accessible via SSH for ease of configuration, open a SSH session using your the application of your choice to the Linux machine.
+- Set the IP address of the Linux machine to static using [this article](https://www.cyberciti.biz/faq/howto-setting-rhel7-centos-7-static-ip-configuration/). **The used network-card (eth0) might be different on your Linux machine!!**
+- Use the below table for the IP addresses for the Linux machines when using them against the Lab guides
+
+  | Linux Machine | IP address | Pre-Fix |
+  |---------------|------------|---------|
+  | apps-unix     | 10.0.0.30  | 24 |
+  | db-unix       | 10.0.0.35  |24 | 
+  | devops-unix   | Free of choice | Your subnet |
+
+- Use ``systemctl restart network`` to restart the network. You might loose the ssh session!!!
+- Edit the DNS resolving via ``vi /etc/resolv.conf``
+- Add two lines:
+
+  1. nameserver 10.0.0.1
+  2. search greensafe.lab
+
+- Save the file
+- To test type ``ping dc-server.greensfae.lab`` a reply should be given.
+  
 - CentOS Machines need to have the repo for Centrify Agents added. Run the following commands
 - Create a file using ``vi /etc/yum.repos.d/centrify-rpm-redhat.repo``
 - Copy the below content in the file
@@ -172,10 +265,12 @@ After the installation of the CentOS 7 O/S the following needs to be installed a
 	autorefresh=1
 	type=rpm-md	
 ```
+```
+**NOTE**
 
-URL for the documented details:  https://docs.centrify.com/Content/inst-depl/AgentsOptionsNativeInstall.htm. To get a TOKEN click the Set Me Up as shown below on https://thycotic.force.com/centrifysupport/CentrifyRepo.
-
-##### Extra configuration/installation for apps-unix and db-unix
+URL for the documented details:  https://docs.centrify.com/Content/inst-depl/AgentsOptionsNativeInstall.htm. To get a TOKEN click the Set Me Up as shown below on https://thycotic.force.com/centrifysupport/CentrifyRepo. To check the Centrify Repo can be accessed, type ``yum list Centrify*`` this should return some Centrify results. If you get an error, there will be an issue in the repo file you created.
+```
+#### Extra configuration/installation for apps-unix and db-unix
 
 - Add users, password, their  special groups, home dir (if not \/home\/\<username>) and shell (if not /bin/bash) use ``useradd -m -G wheel <USERNAME>``
 	- afoster-a, Centr1fy, wheel (**on db-unix only!!!**)
@@ -184,18 +279,38 @@ URL for the documented details:  https://docs.centrify.com/Content/inst-depl/Age
 	- kim, Centr1fy
 	- sam, Centr1fy
 
-##### Extra configuration for apps-unix only
+	- Use the following commands to get the users in the system:
+
+		```bash
+		for name in "afoster-a" "cfyadmin" "heldesk-a";do adduser -m -G wheel $name; echo -e "Centr1fy\nCentr1fy" | passwd $name; done
+		```
+	  and
+	  	```bash
+		for name in "kim" "sam";do adduser -m $name; echo -e "Centr1fy\nCentr1fy" | passwd $name; done
+		```
+
+
+#### Extra configuration for apps-unix only
 
 As this server also needs a GUI, it can be installed using
 			
-- ``yum -y groups install "GNOME Desktop"``
+- ``yum -y groups install "GNOME Desktop"`` *this step will take approx. 10 minutes*
 - ``systemctl set-default graphical.target``
 - ``reboot``
-- Finish the installation after the reboot and *create 1 user* **afoster-a**, account will be part of the wheel group by default
+- You should now have a GUI version of the earlier installed CentOS machine.
 
-##### Extra configuration for devops-unix only
+#### Extra configuration for devops-unix only
 
 - Add users, password, their  special groups, home dir (if not \/home\/\<username>) and shell (if not /bin/bash) use ``useradd -m -G wheel <USERNAME>``
 	- afoster-a, Centr1fy, wheel
 	- cfyadmin, Centr1fy, wheel
 	- heldesk-a, Centr1fy, wheel
+- Use the following command to get the users in the system:
+
+	```bash
+	for name in "afoster-a" "cfyadmin" "heldesk-a";do adduser -m -G wheel $name; echo -e "Centr1fy\nCentr1fy" | passwd $name; done
+	```
+
+---
+
+## Your environment should now be ready to run the Lab
