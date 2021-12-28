@@ -98,6 +98,13 @@ During the installation of the SQL server a few configuration options *must* be 
 2. Client Tools Connectivy
 3. Install a default SQL with an *Instance ID* named **CENTRIFY**
 4. Leave the *Windows authentication mode* and add the **greensafe\Domain Admins** as the SQL Server Administrator using the **Add...** button
+5. Open the **SQL Server Configuration Manager**
+6. Select *SQL Server Network Configuration*
+7. Under the *Protocol* tab, double-click **TCP/IP** and set **Enabled** to **Yes**
+8. Under the *IP Addresses* Tab, make sure port **1433** is mentioned on all IP Addresses and is the IP address is *Enabled* **Yes**
+9. Click **OK** twice
+10. Restart the server
+
 
 ### SQL Reporting Services
 
@@ -314,3 +321,5 @@ As this server also needs a GUI, it can be installed using
 ---
 
 ## Your environment should now be ready to run the Lab
+
+Shutdown all VMs as they are ready to be used.
