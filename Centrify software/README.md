@@ -44,7 +44,6 @@ To build the environment the following pre-requisites are needed in knowledge an
 	- Remove IE from the taskbar
 	- Run Windows Updates on all machines
 
----
 
 **PRO TIP** 
 
@@ -53,37 +52,39 @@ Create a Windows 2016 syspreped template and use to build the all needed Windows
 - Chrome
 - PuTTY
 
----
-## DC-Server
+<BR/><BR/>
+# DC-Server
 
 The lab needs a AD Domain Controller with the name **dc-server**. This part of the preparation is setting this up.
-### Hardware components:
+## Hardware components:
 
 - 2 vCPUs
 - 4 GB RAM
 - 30 GB HDD
 
-### Installation
+## Installation
 
 - Create a Active Directory Domain named **greensafe.lab**
 - After domain has been created:
 
-    - Copy the *[users.csv](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/users.csv)* file onto the machine to a location in the AD VM
-    - Copy the following script *[Greensafe-lab-OU-Groups-Users.ps1](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/Greensafe-lab-OU-Groups-Users.ps1)* to the same location as the users.csv. Change if wanted the default password to something else.
+    - Copy the content of *[users.csv](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/users.csv)* in a file called users.csv onto the machine to a location in the AD VM
+    - Copy the following script content *[Greensafe-lab-OU-Groups-Users.ps1](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Centrify%20software/Greensafe-lab-OU-Groups-Users.ps1)* to the same location as the users.csv and name it AD-Objects.ps1. Change, if needed, the default password (*Centr1fy*) to something else. Just remember to tell others about the new set password as that is not what is used in the lab guide.
     - Open a Powershell and CD to the location of the two files
     - Run the the Powershell command to let the script create the AD Objects.
 
-## DB-server
+<BR/><BR/>
+
+# DB-server
 
 This server will provide the SQL database instance needed for the lab/demo environment and is **member of the greensafe.lab domain**.
 
-### Hardware
+## Hardware
 
 - 4 vCPU
 - 8 GB RAM
 - 60 GB HDD
 
-### Extra software
+## Extra software
 
 - .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
 - [SQL 2008-2016 (test 2017 Developer!?)](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
@@ -91,22 +92,23 @@ This server will provide the SQL database instance needed for the lab/demo envir
  
 - SQL Management Studio (https://aka.ms/ssmsfullsetup)
 
-### SQL server
+## SQL server
 
 During the installation of the SQL server a few configuration options *must* be selected:
 1. Database Engine Services
 2. Client Tools Connectivy
-3. Install a default SQL with an *Instance ID* named **CENTRIFY**
+3. Install a default SQL with a *Named Instance* named **CENTRIFY**
 4. Leave the *Windows authentication mode* and add the **greensafe\Domain Admins** as the SQL Server Administrator using the **Add...** button
 5. Open the **SQL Server Configuration Manager**
 6. Select *SQL Server Network Configuration*
 7. Under the *Protocol* tab, double-click **TCP/IP** and set **Enabled** to **Yes**
 8. Under the *IP Addresses* Tab, make sure port **1433** is mentioned on all IP Addresses and is the IP address is *Enabled* **Yes**
 9. Click **OK** twice
+10. Start the **SQL Browser Agent** service by setting it to *Automatic*
 10. Restart the server
 
 
-### SQL Reporting Services
+## SQL Reporting Services
 
 Back at the SQL installation, click SQL Reporting Services. This will open a webpage to [SQL 2017 Reporting Service](https://www.microsoft.com/en-us/download/details.aspx?id=55252). Download and execute the downloaded file, select the Developer edition. after the installation a Restart is required. Extra configuration steps
 
@@ -127,28 +129,29 @@ After this, the URLs have to be defined
 3. Under *Web Portal URL* set the Virtual Directory to *Reports_CENTRIFY*
 4. Click **Apply** and wait till all is ready
 
-### SQL Management Studio
+## SQL Management Studio
 
 Download and install the SQL Management Studio on the **db-server**
 
-## Apps-server
+<BR/><BR/>
+# Apps-server
 
 The lab will be mostly run from this server, so some parts have to be installed and prepared and **is member of the greensafe.lab domain**.
 
-### Hardware
+## Hardware
 
 - 4 vCPU
 - 8 GB RAM
 - 30 GB HDD
 
-### Extra software
+## Extra software
 
 - PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 - WinSCP (https://winscp.net/eng/downloads.php)
 - Windows Adminstrative Tools (https://www.hammer-software.com/how-to-install-remote-server-administration-tools-rsat-on-windows-server-2016/)
 - Group Policy Management (https://helpcenter.netwrix.com/NA/Third_party/GPMC.html)
 
-### Configuration
+## Configuration
 
 - PuTTY shortcut on the desktop
 - WinSCP shortcut on the desktop
@@ -157,22 +160,7 @@ The lab will be mostly run from this server, so some parts have to be installed 
 - Google Chrome shortcut on the desktop and pinned to the taskbar (https://www.google.com/chrome/?standalone=1)
 - Active Directory Users and Computers shortcut on the desktop and pinned to the taskbar
 
-## devops-windows
-
-This Windows 2016 machine is not part of the domain and in another Network IP Range. It will be used in the lab as Connector and to remote control into its network.
-
-### Hardware
-
-- 2 vCPUs
-- 4 GB RAM
-- 30 GB HDD
-
-### Extra software
-
-- PuTTY on desktop
-- Chrome on desktop
-
-## Final Domain configuration
+# Final Domain configuration
 
 After all steps have been run, disable the Windows Update using the Group Policy Editor
 
@@ -183,39 +171,66 @@ After all steps have been run, disable the Windows Update using the Group Policy
 4. Navigate to *Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Update*
 5. Double-click on **Configure Automatic Updates** select **Disabled** and click **OK**
 6. Close all open Windows and log out
+
 ---
-## Linux machines
+# devops-windows
+
+This Windows 2016 machine is not part of the domain and in another Network IP Range. It will be used in the lab as Connector and to remote control into its network.
+
+## Hardware
+
+- 2 vCPUs
+- 4 GB RAM
+- 30 GB HDD
+
+## Extra software
+
+- PuTTY on desktop
+- Chrome on desktop
+
+## Extra configuration
+
+- Run in a Elevated CMD prompt the following commands
+
+```bash
+   net user afoster-a Centr1fy /add /FULLNAME:"Alex Foster" /comment:"Alternate Admin Account"
+   net user helpdesk-a Centr1fy /add /FULLNAME:"Helpdesk Admin" /comment:"Admin Account"
+   net localgroup Administrators afoster-a /add
+   net localgroup Administrators helpdesk-a /add
+
+```
+<BR/><BR/>
+
+# Linux machines
 
 The three Linux machines are based on the CentOS 7 distribution. Download the minimum iso (approx. 1GB) from http://isoredirect.centos.org/centos/7/isos/x86_64/.
 
----
 
 **PRO TIP**
 
 Build one Linux machine and then clone it for the other two, make the needed changes to speed up the creation of the three Linux boxes. **Stop at the creation of the users as they are dependent on the Linux Machine**.
 
----
-### Hardware
+## Hardware
 
 Two out of the three Linux machines have the same hardware requirement. The last one (devops-unix) is smaller in size.
-#### apps-unix and db-unix
+### apps-unix and db-unix
 
 - 2 vCPUs
 - 4GB RAM
 - 30 GB HDD
 
-#### devops-unix
+### devops-unix
 
 - 1 vCPU
 - 1 GB RAM
 - 30 GB HDD
 
-### Installation steps
+## Installation steps
 
 Install CentOS as a minimum installation using the downloaded ISO file. For the **root** password use **password1**
-### Post O/S installation
+## Post O/S installation
 
-#### General steps for all three Linux machines
+### General steps for all three Linux machines
 
 After the installation of the CentOS 7 O/S the following needs to be installed and configured for all three Linux machines:
 
@@ -277,7 +292,7 @@ After the installation of the CentOS 7 O/S the following needs to be installed a
 
 URL for the documented details:  https://docs.centrify.com/Content/inst-depl/AgentsOptionsNativeInstall.htm. To get a TOKEN click the Set Me Up as shown below on https://thycotic.force.com/centrifysupport/CentrifyRepo. To check the Centrify Repo can be accessed, type ``yum list Centrify*`` this should return some Centrify results. If you get an error, there will be an issue in the repo file you created.
 ```
-#### Extra configuration/installation for apps-unix and db-unix
+### Extra configuration/installation for apps-unix and db-unix
 
 - Add users, password, their  special groups, home dir (if not \/home\/\<username>) and shell (if not /bin/bash) use ``useradd -m -G wheel <USERNAME>``
 	- afoster-a, Centr1fy, wheel (**on db-unix only!!!**)
@@ -297,7 +312,7 @@ URL for the documented details:  https://docs.centrify.com/Content/inst-depl/Age
 		```
 
 
-#### Extra configuration for apps-unix only
+### Extra configuration for apps-unix only
 
 As this server also needs a GUI, it can be installed using
 			
@@ -306,7 +321,7 @@ As this server also needs a GUI, it can be installed using
 - ``reboot``
 - You should now have a GUI version of the earlier installed CentOS machine.
 
-#### Extra configuration for devops-unix only
+### Extra configuration for devops-unix only
 
 - Add users, password, their  special groups, home dir (if not \/home\/\<username>) and shell (if not /bin/bash) use ``useradd -m -G wheel <USERNAME>``
 	- afoster-a, Centr1fy, wheel
@@ -317,9 +332,8 @@ As this server also needs a GUI, it can be installed using
 	```bash
 	for name in "afoster-a" "cfyadmin" "heldesk-a";do adduser -m -G wheel $name; echo -e "Centr1fy\nCentr1fy" | passwd $name; done
 	```
+<BR/><BR/>
 
----
-
-## Your environment should now be ready to run the Lab
+# Your environment should now be ready to run the Lab
 
 Shutdown all VMs as they are ready to be used.
