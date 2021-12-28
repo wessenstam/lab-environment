@@ -87,9 +87,7 @@ This server will provide the SQL database instance needed for the lab/demo envir
 ## Extra software
 
 - .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
-- [SQL 2008-2017](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
-- [SQL 2017 Reporting Service](https://www.microsoft.com/en-us/download/details.aspx?id=55252)
- 
+- SQL 2008-2017. SQL 2017 Developer edition, can be downloaded [here](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
 - SQL Management Studio (https://aka.ms/ssmsfullsetup)
 
 ## SQL server
