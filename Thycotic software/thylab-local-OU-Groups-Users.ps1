@@ -33,13 +33,13 @@ foreach($user in $user_list){
     if ($OU.Length -eq 0){
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
                    -SamAccountName $account -UserPrincipalName $UPN  -Path "CN=Users,DC=thylab.local" `
-                   -Enabled $true -AccountPassword ("Centr1fy"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -Enabled $true -AccountPassword ("Thycotic@2022"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     # OU is not empty
     }else{
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
                    -SamAccountName $account -UserPrincipalName $UPN -Path "OU=$OU,DC=thylab.local" `
-                   -Enabled $true -AccountPassword ("Centr1fy"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -Enabled $true -AccountPassword ("Thycotic@2022"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     }
 

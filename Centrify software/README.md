@@ -1,6 +1,6 @@
 # Detailed building guide
 
-This guide will provide all detailed information on the building of the LAB/Demo environments. It will NOT provide any licenses, just some URLs where the needed software can be downloaded. It will provide detailed steps on how the software is installed, supported (if needed) with screenshots.
+This guide will provide all detailed information on the building of the LAB/Demo environment for Server Suite with a Cloud tenant. It will NOT provide any licenses, just some URLs where the needed software can be downloaded. It will provide detailed steps on how the software is installed, supported (if needed) with screenshots.
 
 ## Pre-requisites
 
@@ -21,7 +21,6 @@ To build the environment the following pre-requisites are needed in knowledge an
 - Operating systems
 
     - Windows 2016 installation media (https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016)
-    - SQL Server 2016 (Developer version is allowed https://www.microsoft.com/en-us/evalcenter/evaluate-sql-server-2016) installation media
     - CentOS 7 or 8 installation media (the guide uses version 7 - https://www.centos.org/download/)
 
 - Hyper-Visor of choice. Lab guide has been built and tested on VMware ESXi 7.0
@@ -29,17 +28,17 @@ To build the environment the following pre-requisites are needed in knowledge an
 - Extra software:
 
     - PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+	- SQL Server (2008-2016)
     - SQL Management Studio (https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
     - .NET 4.8 installation (https://go.microsoft.com/fwlink/?linkid=2088631)
     - Centrify Cloud Tenant (\<tenant>.my.centrify.net. request via ThycoticCentrify SE)
     - Centrify Server Suite Software (request via ThycoticCentrify SE)
     - Google Chrome and/or Firefox browser
 
-- Extra configuration for All Windows 2016 Server machines
+- Extra configuration for **All Windows 2016 Server** machines
 
-	- Add all servers to the greensafe.lab domain
+	- Add all servers to the greensafe.lab domain **except the devops-win**
 	- Disable the firewall
-	- Set Google Chrome as the default browser where it needs to be installed
 	- Disable the Server Manager start up at boot time
 	- Remove IE from the taskbar
 	- Run Windows Updates on all machines
@@ -158,7 +157,8 @@ The lab will be mostly run from this server, so some parts have to be installed 
 - Services shortcut on the desktop and pinned to the taskbar
 - Google Chrome shortcut on the desktop and pinned to the taskbar (https://www.google.com/chrome/?standalone=1)
 - Active Directory Users and Computers shortcut on the desktop and pinned to the taskbar
-- Add the domain account GREENSAFE\cfyadmin to allow Log on as Service rights (Open *Local Security Policy* navigate to *Security Settings > Local Policies > User Rights Assignment*. Double click *Log on as a service* and add **cfyadmin** [Reference document](https://docs.microsoft.com/en-us/system-center/scsm/enable-service-log-on-sm?view=sc-sm-2019))
+- Add the domain account GREENSAFE\cfyadmin to allow Log on as Service rights (Open *Local Security Policy* navigate to *Security Settings > Local Policies > User Rights Assignment*. Double click *Log on as a service* and add **cfyadmin** and **afoster** [Reference document](https://docs.microsoft.com/en-us/system-center/scsm/enable-service-log-on-sm?view=sc-sm-2019))
+- Create a folder called **Shared\CS2021** in the root of C: and copy the installation file of Centrify Server Suite in it. Also copy the licenses in te **C:\Shared** folder in a text file
 
 # Final Domain configuration
 
