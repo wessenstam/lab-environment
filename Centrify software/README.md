@@ -71,6 +71,11 @@ The lab needs a AD Domain Controller with the name **dc-server**. This part of t
     - Open a Powershell and CD to the location of the two files
     - Run the the Powershell command to let the script create the AD Objects.
 
+- Open the DNS manager (dnsmgmt.msc) and follow these steps:
+
+    - Add a forwarder to the DNS server DC1 use 8.8.8.8 or your local DNS server for "external" DNS resolving
+    - Create a reverse *Lookup Zone* for **10.0.0**
+
 <BR/><BR/>
 
 # DB-server
@@ -128,7 +133,7 @@ After this, the URLs have to be defined
 
 ## SQL Management Studio
 
-Download and install the SQL Management Studio on the **db-server**
+Download and install the SQL Management Studio on the **db-server** and restart the server
 
 <BR/><BR/>
 
