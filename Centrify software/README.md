@@ -274,23 +274,23 @@ After the installation of the CentOS 7 O/S the following needs to be installed a
 - Copy the below content in the file
 
 ```bash
-	# Source: CENTRIFY
-	# Repository: CENTRIFY / rpm-redhat
-	# Description: YUM repository for RedHat packages (.rpm)
-	
-	[centrify-rpm-redhat]
-	name=centrify-rpm-redhat
-	baseurl=https://cloudrepo.centrify.com/Cv3R5EV0RGRwJ21M/rpm-redhat/rpm/el/7/$basearch
-	repo_gpgcheck=1
-	enabled=1
-	gpgkey=https://cloudrepo.centrify.com/Cv3R5EV0RGRwJ21M/rpm-redhat/cfg/gpg/gpg.BDD3FD95B65ECA48.key
-	gpgcheck=1
-	sslverify=1
-	sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-	metadata_expire=300
-	pkg_gpgcheck=1
-	autorefresh=1
-	type=rpm-md	
+# Source: CENTRIFY
+# Repository: CENTRIFY / rpm-redhat
+# Description: YUM repository for RedHat packages (.rpm)
+
+[centrify-rpm-redhat]
+name=centrify-rpm-redhat
+baseurl=https://cloudrepo.centrify.com/Cv3R5EV0RGRwJ21M/rpm-redhat/rpm/el/7/$basearch
+repo_gpgcheck=1
+enabled=1
+gpgkey=https://cloudrepo.centrify.com/Cv3R5EV0RGRwJ21M/rpm-redhat/cfg/gpg/gpg.BDD3FD95B65ECA48.key
+gpgcheck=1
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+metadata_expire=300
+pkg_gpgcheck=1
+autorefresh=1
+type=rpm-md	
 ```
 
 **NOTE**
