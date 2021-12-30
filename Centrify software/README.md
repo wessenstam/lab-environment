@@ -292,11 +292,11 @@ After the installation of the CentOS 7 O/S the following needs to be installed a
 	autorefresh=1
 	type=rpm-md	
 ```
-```
+
 **NOTE**
 
 URL for the documented details:  https://docs.centrify.com/Content/inst-depl/AgentsOptionsNativeInstall.htm. To get a TOKEN click the Set Me Up as shown below on https://thycotic.force.com/centrifysupport/CentrifyRepo. To check the Centrify Repo can be accessed, type ``yum list Centrify*`` this should return some Centrify results. If you get an error, there will be an issue in the repo file you created.
-```
+
 ### Extra configuration/installation for apps-unix and db-unix
 
 - Add users, password, their  special groups, home dir (if not \/home\/\<username>) and shell (if not /bin/bash) use ``useradd -m -G wheel <USERNAME>``

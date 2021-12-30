@@ -59,9 +59,6 @@ All machines are in 1 IP range.
 
 *Domain used*: thylab.local
 
----
-#### REMARK
+# Your environment should now be ready to run the Lab
 
-This guide **WILL NOT** provide any licenses needed for the O/S and used software. That is on the builder of the Lab/Demo environment!!!
-
- 
+Shutdown all VMs as they are ready to be used. 
