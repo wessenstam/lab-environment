@@ -198,10 +198,10 @@ This Windows 2016 machine is not part of the domain and in another Network IP Ra
 - Run in a Elevated CMD prompt the following commands
 
 ```bash
-   net user afoster-a Centr1fy /add /FULLNAME:"Alex Foster" /comment:"Alternate Admin Account"
-   net user helpdesk-a Centr1fy /add /FULLNAME:"Helpdesk Admin" /comment:"Admin Account"
-   net localgroup Administrators afoster-a /add
-   net localgroup Administrators helpdesk-a /add
+net user afoster-a Centr1fy /add /FULLNAME:"Alex Foster" /comment:"Alternate Admin Account"
+net user helpdesk-a Centr1fy /add /FULLNAME:"Helpdesk Admin" /comment:"Admin Account"
+net localgroup Administrators afoster-a /add
+net localgroup Administrators helpdesk-a /add
 
 ```
 <BR/><BR/>
