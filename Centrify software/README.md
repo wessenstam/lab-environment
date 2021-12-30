@@ -73,7 +73,7 @@ The lab needs a AD Domain Controller with the name **dc-server**. This part of t
 
 - Open the DNS manager (dnsmgmt.msc) and follow these steps:
 
-    - Add a forwarder to the DNS server DC1 use 8.8.8.8 or your local DNS server for "external" DNS resolving
+    - Add a forwarder to the DNS server dc-server use 8.8.8.8 or your local DNS server for "external" DNS resolving
     - Create a reverse *Lookup Zone* for **10.0.0**
 
 <BR/><BR/>

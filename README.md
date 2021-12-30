@@ -30,7 +30,7 @@ This environment has 7 VMs.
 6. CentOS 7, Apps Server, apps-unix
 7. CentOS 7, DevOps machine, devops-unix
 
-Except the DevOps related machine all machines are in 1 IP range. The DevOps machines are in another IP range. No routing between the networks.
+Except the DevOps related machine all machines are in 1 IP range. The DevOps machines are in another IP range. No routing between the networks, but both networks need internet connectivity.
 
 *Domain used*: greensafe.lab
 
