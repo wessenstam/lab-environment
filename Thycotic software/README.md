@@ -46,7 +46,7 @@ To build the environment the following pre-requisites are needed in knowledge an
 
 **PRO TIP** 
 
-Create a Windows 2016 syspreped template and use to build the all needed Windows machines. Have to template pre-installed with:
+Create a Windows 2016 syspreped template and use it to build all needed Windows machines. Have the template pre-installed with:
 - Windows Update ran
 - Chrome
 - PuTTY
