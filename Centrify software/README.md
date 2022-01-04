@@ -34,6 +34,8 @@ To build the environment the following pre-requisites are needed in knowledge an
     - Centrify Cloud Tenant (\<tenant>.my.centrify.net. request via ThycoticCentrify SE)
     - Centrify Server Suite Software (request via ThycoticCentrify SE)
     - Google Chrome and/or Firefox browser
+    - hMailserver use for email MFA
+    - Thunderbird
 
 - Extra configuration for **All Windows 2016 Server** machines
 
@@ -75,6 +77,8 @@ The lab needs a AD Domain Controller with the name **dc-server**. This part of t
 
     - Add a forwarder to the DNS server dc-server use 8.8.8.8 or your local DNS server for "external" DNS resolving
     - Create a reverse *Lookup Zone* for **10.0.0**
+    - Create a host (A) record for mail with the same IP address as the DB-server
+    - Create a Mail Exchange (MX) record for the mail DNS host (A) record with a priority of 10
 
 <BR/><BR/>
 
@@ -93,6 +97,7 @@ This server will provide the SQL database instance needed for the lab/demo envir
 - .NET 4.8 installer (https://go.microsoft.com/fwlink/?linkid=2088631)
 - SQL 2008-2017. SQL 2017 Developer edition, can be downloaded [here](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
 - SQL Management Studio (https://aka.ms/ssmsfullsetup)
+- hMailserver latest version (https://www.hmailserver.com/download)
 
 ## SQL server
 
@@ -137,6 +142,17 @@ Download and install the SQL Management Studio on the **db-server** and restart 
 
 <BR/><BR/>
 
+## hMailserver
+By using this small email server it is possible to emulate MFA via Email.
+
+1. Download [hmailserver](https://www.hmailserver.com/download) and install it
+2. After the installation, use the password you used at installation for accessing the Administrator side
+3. Add the greensafe.lab domain
+4. After the adding, add AD users by right-clicking on *Accounts* and select **Add AD Accounts**
+5. Select greensafe.lab and select all none built in users (ex. Administrator, krbgt, Default User, etc.)
+6. Under *Advanced*, click IP Range and add your LAN IP range. This allows the LAN network to use the SMTP as relaying for messages
+7. Exit the hMailserver interface
+
 # Apps-server
 
 The lab will be mostly run from this server, so some parts have to be installed and prepared and **is member of the greensafe.lab domain**.
@@ -153,6 +169,7 @@ The lab will be mostly run from this server, so some parts have to be installed 
 - WinSCP (https://winscp.net/eng/downloads.php)
 - Windows Adminstrative Tools (https://www.hammer-software.com/how-to-install-remote-server-administration-tools-rsat-on-windows-server-2016/)
 - Group Policy Management (https://helpcenter.netwrix.com/NA/Third_party/GPMC.html)
+- Thunderbird (https://www.thunderbird.net/en-US/)
 
 ## Configuration
 
@@ -164,7 +181,8 @@ The lab will be mostly run from this server, so some parts have to be installed 
 - Active Directory Users and Computers shortcut on the desktop and pinned to the taskbar
 - Add the domain account GREENSAFE\cfyadmin to allow Log on as Service rights (Open *Local Security Policy* navigate to *Security Settings > Local Policies > User Rights Assignment*. Double click *Log on as a service* and add **cfyadmin** and **afoster** [Reference document](https://docs.microsoft.com/en-us/system-center/scsm/enable-service-log-on-sm?view=sc-sm-2019))
 - Create a folder called **Shared\CS2021** in the root of C: and copy the installation file of Centrify Server Suite in it. Also copy the licenses in te **C:\Shared** folder in a text file
-
+- Download [Thunderbird](https://www.thunderbird.net/en-US/) and install it for all users
+- Login to the server as afoster and configure Thunderbird. That way afoaster is capable of receiving email for MFA. Other users can be configured so they can also use MFA via email.
 # Final Domain configuration
 
 After all steps have been run, disable the Windows Update using the Group Policy Editor
