@@ -31,8 +31,6 @@ To build the environment the following pre-requisites are needed in knowledge an
     - SQL 2008-2017. SQL 2017 Developer edition, can be downloaded [here](https://download.microsoft.com/download/5/A/7/5A7065A2-C81C-4A31-9972-8A31AC9388C1/)
     - SQL Management Studio (https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
     - .NET 4.8 installation (https://go.microsoft.com/fwlink/?linkid=2088631)
-    - Centrify Cloud Tenant (\<tenant>.my.centrify.net. request via ThycoticCentrify SE)
-    - Centrify Server Suite Software (request via ThycoticCentrify SE)
     - Google Chrome and/or Firefox browser
 
 - Extra configuration for **All Windows** VMs
