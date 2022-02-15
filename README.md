@@ -25,14 +25,15 @@ This environment has 7 VMs.
 1. Windows 2016, Domain Controller, dc-server
 2. Windows 2016, DB server, db-server
 3. Windows 2016, Apps server, apps-server
-4. Windows 10, DevOps Windows, devops-win
+4. Windows 2016, DevOps Windows, devops-win
 5. CentOS 7, DB Server, db-unix
 6. CentOS 7, Apps Server, apps-unix
 7. CentOS 7, DevOps machine, devops-unix
 
-Except the DevOps related machine all machines are in 1 IP range. The DevOps machines are in another IP range. No routing between the networks.
+Except the DevOps related machine all machines are in 1 IP range. The DevOps machines are in another IP range. No routing between the networks, but both networks need internet connectivity.
 
 *Domain used*: greensafe.lab
+
 ### Thycotic Secret Server
 
 This environment has 4 VMs.
@@ -58,9 +59,6 @@ All machines are in 1 IP range.
 
 *Domain used*: thylab.local
 
----
-#### REMARK
+# Your environment should now be ready to run the Lab
 
-This guide **WILL NOT** provide any licenses needed for the O/S and used software. That is on the builder of the Lab/Demo environment!!!
-
- 
+Shutdown all VMs as they are ready to be used. 

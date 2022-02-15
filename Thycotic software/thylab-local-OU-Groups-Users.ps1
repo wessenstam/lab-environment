@@ -3,7 +3,7 @@
 # Create the OUs
 $AD_OUs_array=@("DemoAccounts","SecretServer","SecurityGroups")
 foreach($OU in $AD_OUs_array){
-    New-ADOrganizationalUnit -Name $OU -Path "DC=thylab.local"
+    New-ADOrganizationalUnit -Name $OU -Path "DC=thylab,DC=local"
 }
 
 # Create the needed groups
@@ -12,7 +12,7 @@ $ADgrpnames_array=@("IT - Database Team","IT - Desktop Team","IT - Server Team",
                     )
 
 foreach($ADgrpname in $ADgrpnames_array){
-    New-ADGroup -Name $ADgrpname -SamAccountName $ADgrpname -GroupCategory Security -GroupScope Global -Path "OU=SecurityGroups,DC=thylab.local"
+    New-ADGroup -Name $ADgrpname -SamAccountName $ADgrpname -GroupCategory Security -GroupScope Global -Path "OU=SecurityGroups,DC=thylab,DC=local"
 }
 
 
@@ -27,19 +27,19 @@ foreach($user in $user_list){
     $account=$user.Account
     $grps=$user.Groups
     $user_name=$firstname+" "+$lastname
-    $UPN=$account+"@greensafe.lab"
+    $UPN=$account+"@thylab.local"
     $OU=$user.OU
     # If No OU given, then in Users
     if ($OU.Length -eq 0){
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
-                   -SamAccountName $account -UserPrincipalName $UPN  -Path "CN=Users,DC=thylab.local" `
-                   -Enabled $true -AccountPassword ("Centr1fy"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -SamAccountName $account -UserPrincipalName $UPN  -Path "CN=Users,DC=thylab,DC=local" `
+                   -Enabled $true -AccountPassword ("Thycotic@2022!"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     # OU is not empty
     }else{
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
-                   -SamAccountName $account -UserPrincipalName $UPN -Path "OU=$OU,DC=thylab.local" `
-                   -Enabled $true -AccountPassword ("Centr1fy"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -SamAccountName $account -UserPrincipalName $UPN -Path "OU=$OU,DC=thylab,DC=local" `
+                   -Enabled $true -AccountPassword ("Thycotic@2022!"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     }
 
