@@ -67,6 +67,7 @@ The lab needs a AD Domain Controller with the name **DC1**. This part of the pre
 - Create a Active Directory Domain named **greensafe.lab**
 - After domain has been created:
 
+    - Install the CA role as enterprise with the Web interface. You need to create your own certificate (wildcard can be used as well) and use GPO to deploy it to the Windows machines. An example of creating a wildcard certificate, follow this article: https://www.petenetlive.com/KB/Article/0001128.
     - Copy the content of *[users.csv](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Thycotic%20software/users.csv)* in a file called users.csv onto the machine to a location in the AD VM
     - Copy the following script content *[thylab-local-OU-Groups-Users.ps1](https://raw.githubusercontent.com/wessenstam/lab-environment/main/Thycotic%20software/thylab-local-OU-Groups-Users.ps1)* to the same location as the users.csv and name it **AD-Objects.ps1**. Change, if needed, the default password (*Thycotic@2022!*) to something else. Just remember to tell others about the new set password as that is not what is used in the lab guide.
     - Open a Powershell and CD to the location of the two files
@@ -133,6 +134,7 @@ As Secret Server and Privilege Manager are depending on IIS for the webserver, u
 - CD to the location you saved the file
 - Run the iis-install.ps1 script. This will install the needed IIS components, Disable the Server Manager from starting and install .NET 4.8 Framework which is also needed. If you get an warning message, click **Yes to all**
 - The script will reboot the server, but will not show any messages!!! Check the taskmanager for progress on the installation of the .NET 4.8 Framework
+- Install the created (wildcard) certificate from the DC as the IIS server certificate and restart the IIS server so it uses the new certificate.
 
 ## Extra configuration
 
