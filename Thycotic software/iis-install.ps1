@@ -39,6 +39,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName IIS-Performance
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerManagementTools
 
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-ManagementConsole
+Enable-WindowsOptionalFeature -Online -FeatureName IIS-ManagementScriptingTools
 
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-ApplicationInit
 
