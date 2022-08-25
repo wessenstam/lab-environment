@@ -64,7 +64,7 @@ The lab needs a AD Domain Controller with the name **DC1**. This part of the pre
 
 ## Installation
 
-- Create a Active Directory Domain named **greensafe.lab**
+- Create a Active Directory Domain named **thylab.local**
 - After domain has been created:
 
     - Install the CA role as enterprise with the Web interface. You need to create your own certificate (wildcard can be used as well) and use GPO to deploy it to the Windows machines. An example of creating a wildcard certificate, follow this article: https://www.petenetlive.com/KB/Article/0001128.
