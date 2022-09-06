@@ -17,7 +17,7 @@ foreach($ADgrpname in $ADgrpnames_array){
 
 
 # Create users and put them in the correct ADGroup
-$user_list=Import-CSV "users-secretserver.csv"
+$user_list=Import-CSV "users.csv"
 
 # Start the loop
 foreach($user in $user_list){
