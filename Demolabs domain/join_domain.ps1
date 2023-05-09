@@ -19,6 +19,9 @@ if ($sql){
     Set-ItemProperty $RegistryPath 'DefaultPassword' -Value "Delinea/4u" -type String
     Set-Location -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
     Set-ItemProperty -Path . -Name addDomainUsers -Value 'C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe "c:\Scripts\sql_install.ps1"'
+}else{
+    $RegistryPath = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+    Set-ItemProperty $RegistryPath 'AutoAdminLogon' -Value "0" -Type String 
 }
 
 
