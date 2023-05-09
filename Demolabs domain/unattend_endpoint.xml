@@ -102,7 +102,7 @@
                   <Metric>30</Metric>
                </Ipv4Settings>
                <UnicastIpAddresses>
-                  <IpAddress wcm:action="add" wcm:keyValue="1">172.31.32.20/24</IpAddress>
+                  <IpAddress wcm:action="add" wcm:keyValue="1">172.31.32.100/24</IpAddress>
                </UnicastIpAddresses>
                <Routes>
                   <Route wcm:action="add">
