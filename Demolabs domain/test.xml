@@ -1,0 +1,1 @@
+%WINDIR%\system32\sysprep\sysprep /oobe /generalize /shutdown /unattend:C:\Scripts\unattend_app.xml
