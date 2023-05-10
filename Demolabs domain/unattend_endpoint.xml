@@ -12,7 +12,7 @@
             <NetworkLocation>Work</NetworkLocation>
             <SkipMachineOOBE>true</SkipMachineOOBE>
          </OOBE>
-        <ComputerName>endpoint</ComputerName>
+	     <ComputerName>endpoint</ComputerName>
 	     <AutoLogon>
             <Password>
                <Value>Delinea/4u</Value> 
@@ -70,7 +70,7 @@
                <Order>7</Order>
                <RequiresUserInput>false</RequiresUserInput>
             </SynchronousCommand>
-         </FirstLogonCommands>
+         </FirstLogonCommands> 
       </component>
       <component name="Microsoft-Windows-International-Core" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
          <InputLocale>en-US</InputLocale>
