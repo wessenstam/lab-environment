@@ -1,9 +1,9 @@
-# Script to build the AD objects in thylab.local
+# Script to build the AD objects in delinealabs.local
 
 # Create the OUs
-$AD_OUs_array=@("DemoAccounts","SecretServer","SecurityGroups")
+$AD_OUs_array=@("DemoAccounts","SecretServer","SecurityGroups","ServiceAccounts")
 foreach($OU in $AD_OUs_array){
-    New-ADOrganizationalUnit -Name $OU -Path "DC=thylab,DC=local"
+    New-ADOrganizationalUnit -Name $OU -Path "DC=delinealabs,DC=com"
 }
 
 # Create the needed groups
@@ -12,12 +12,16 @@ $ADgrpnames_array=@("IT - Database Team","IT - Desktop Team","IT - Server Team",
                     )
 
 foreach($ADgrpname in $ADgrpnames_array){
-    New-ADGroup -Name $ADgrpname -SamAccountName $ADgrpname -GroupCategory Security -GroupScope Global -Path "OU=SecurityGroups,DC=thylab,DC=local"
+    New-ADGroup -Name $ADgrpname -SamAccountName $ADgrpname -GroupCategory Security -GroupScope Global -Path "OU=SecurityGroups,DC=delinealabs,DC=com"
 }
 
 
 # Create users and put them in the correct ADGroup
+<<<<<<< HEAD:Demolabs domain/Users_Grps.ps1
+$user_list=Import-CSV "c:\Scripts\users.txt"
+=======
 $user_list=Import-CSV "users.csv"
+>>>>>>> main:Thycotic software/thylab-local-OU-Groups-Users.ps1
 
 # Start the loop
 foreach($user in $user_list){
@@ -27,19 +31,19 @@ foreach($user in $user_list){
     $account=$user.Account
     $grps=$user.Groups
     $user_name=$firstname+" "+$lastname
-    $UPN=$account+"@thylab.local"
+    $UPN=$account+"@delinealabs.com"
     $OU=$user.OU
     # If No OU given, then in Users
     if ($OU.Length -eq 0){
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
-                   -SamAccountName $account -UserPrincipalName $UPN  -Path "CN=Users,DC=thylab,DC=local" `
-                   -Enabled $true -AccountPassword ("Thycotic@2022!"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -SamAccountName $account -UserPrincipalName $UPN  -Path "CN=Users,DC=delinealabs,DC=com" `
+                   -Enabled $true -AccountPassword ("Delinea/4u"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     # OU is not empty
     }else{
         New-ADUser -Name $user_name -GivenName $firstname -Surname $lastname `
-                   -SamAccountName $account -UserPrincipalName $UPN -Path "OU=$OU,DC=thylab,DC=local" `
-                   -Enabled $true -AccountPassword ("Thycotic@2022!"| ConvertTo-SecureString -AsPlainText -Force) `
+                   -SamAccountName $account -UserPrincipalName $UPN -Path "OU=$OU,DC=delinealabs,DC=com" `
+                   -Enabled $true -AccountPassword ("Delinea/4u"| ConvertTo-SecureString -AsPlainText -Force) `
                    -ChangePasswordAtLogon $false -PasswordNeverExpires $true
     }
 
