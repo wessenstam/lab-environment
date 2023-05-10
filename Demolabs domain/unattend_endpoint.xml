@@ -13,6 +13,15 @@
             <SkipMachineOOBE>true</SkipMachineOOBE>
          </OOBE>
 	     <ComputerName>endpoint</ComputerName>
+	     <AutoLogon>
+            <Password>
+               <Value>Delinea/4u</Value> 
+               <PlainText>true</PlainText> 
+            </Password>
+            <Username>Administrator</Username> 
+            <Enabled>true</Enabled> 
+            <LogonCount>1</LogonCount> 
+         </AutoLogon>
          <UserAccounts>
             <AdministratorPassword>
                <Value>Delinea/4u</Value>
