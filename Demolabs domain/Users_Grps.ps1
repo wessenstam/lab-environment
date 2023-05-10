@@ -17,7 +17,11 @@ foreach($ADgrpname in $ADgrpnames_array){
 
 
 # Create users and put them in the correct ADGroup
+<<<<<<< HEAD:Demolabs domain/Users_Grps.ps1
 $user_list=Import-CSV "c:\Scripts\users.txt"
+=======
+$user_list=Import-CSV "users.csv"
+>>>>>>> main:Thycotic software/thylab-local-OU-Groups-Users.ps1
 
 # Start the loop
 foreach($user in $user_list){
